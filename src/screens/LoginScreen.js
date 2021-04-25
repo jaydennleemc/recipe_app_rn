@@ -47,7 +47,11 @@ export default class LoginScreen extends Component {
           returnKeyType={'done'}
           secureTextEntry={true}
           value={this.state.password}/>
-        <TouchableOpacity containerStyle={styles.buttonContainer}>
+        <TouchableOpacity
+          containerStyle={styles.buttonContainer}
+          onPress={() => {
+            Actions.push('home');
+          }}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         <View style={styles.bottomViewContainer}>

@@ -3,6 +3,7 @@ import {Dimensions, Image, StyleSheet, Text, TouchableOpacity, View} from 'react
 import {IndicatorViewPager, PagerDotIndicator} from '@shankarmorwal/rn-viewpager';
 import {Rating} from 'react-native-ratings';
 import DottedLine from './DottedLine';
+import uuid from 'react-native-uuid';
 
 
 const PagingData = [
@@ -54,7 +55,7 @@ const PagingData = [
 ];
 
 const Page = ({key, title, startingValue, ratingCount, authorImage, author, image}) => (
-  <View style={styles.page} key={key}>
+  <View style={styles.page} key={uuid.v4()}>
     <View style={styles.cardContainer}>
       <View style={{backgroundColor: 'lightgrey', width: 150}}>
         <Image source={image} style={{width: 150, height: 150}}/>

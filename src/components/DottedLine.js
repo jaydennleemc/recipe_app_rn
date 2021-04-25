@@ -1,5 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import {Dimensions, Text, View} from 'react-native';
+import uuid from 'react-native-uuid';
 
 export default class DottedLine extends PureComponent {
 
@@ -16,7 +17,7 @@ export default class DottedLine extends PureComponent {
     return (
       <View style={[{flexDirection: 'row', width: width + this.state.margin, justifyContent: 'center', overflow: 'hidden'}, this.props.style]}>
         {dottes.map(() => {
-          return <Text style={{color: '#999693', fontSize: 20}}>-</Text>;
+          return <Text key={uuid.v4()} style={{color: '#999693', fontSize: 20}}>-</Text>;
         })}
       </View>
     );

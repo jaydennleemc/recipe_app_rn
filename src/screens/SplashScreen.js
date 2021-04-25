@@ -2,34 +2,30 @@ import React, {Component} from 'react';
 import {Text, View, TouchableOpacity, ScrollView, Dimensions, StyleSheet, Image, Button} from 'react-native';
 import {IndicatorViewPager, PagerDotIndicator} from '@shankarmorwal/rn-viewpager';
 import {Actions} from 'react-native-router-flux';
+import uuid from 'react-native-uuid';
 
 const PagingData = [
   {
-    key: 1,
     title: 'Welcome to CookWithMe!',
     detail: 'The best guides to make a masterchef!',
     image: require('../assets/icons/icons8-mushbooh-food-50.png'),
   },
   {
-    key: 2,
     title: 'A thousands of recipes',
     detail: 'No matter how much the \n ingredients your have. You can find a thousand of recipes and become a great chef.',
     // image: require('../assets/icons/icons8-mushbooh-food-50.png'),
   },
   {
-    key: 3,
     title: 'Make your own recipe',
     detail: 'Why not? it\'s fun! \n We can help you share your recipes \n to the world.',
     // image: require('../assets/icons/icons8-mushbooh-food-50.png'),
   },
   {
-    key: 4,
     title: 'Get Cooking!',
     detail: 'Use what you know! \n Apply what your\'ve learned with fun \n and flavorful variations and recipes.',
     // image: require('../assets/icons/icons8-mushbooh-food-50.png'),
   },
   {
-    key: 5,
     title: 'Videos',
     detail: 'Short demonstration videos show you the \n techniques and teach you the skills you want',
     // image: require('../assets/icons/icons8-mushbooh-food-50.png'),
@@ -39,8 +35,8 @@ const PagingData = [
 ];
 
 
-const Page = ({key, title, detail, image, buttonTitle, hasButton}) => (
-  <View style={styles.page} key={key}>
+const Page = ({title, detail, image, buttonTitle, hasButton}) => (
+  <View style={styles.page} key={uuid.v4()}>
     <View style={styles.cardContainer}>
       <View style={styles.cardViewTop}>
       </View>
@@ -86,7 +82,6 @@ export default class SplashScreen extends Component {
     return (
       <View style={{flex: 1}}>
         <IndicatorViewPager
-          initialPage={4}
           style={{flex: 1}}
           onPageSelected={this.onPageSelected}
           indicator={this.renderDotIndicator()}>

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, SafeAreaView, Image, TouchableOpacity, FlatList} from 'react-native';
+import {Actions} from 'react-native-router-flux';
 
 export default class MoreTab extends Component {
 
@@ -64,7 +65,11 @@ export default class MoreTab extends Component {
     return (
       <View style={styles.container}>
         <SafeAreaView/>
-        <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center', marginTop: 32}}>
+        <TouchableOpacity
+          onPress={() => {
+            Actions.push('profile');
+          }}
+          style={{flexDirection: 'row', alignItems: 'center', marginTop: 32}}>
           <Image
             source={require('../../assets/icons/icons8-mushbooh-food-50.png')}
             style={{width: 80, height: 80, borderWidth: 2, borderColor: '#e09178', borderRadius: 50}}/>
@@ -76,6 +81,7 @@ export default class MoreTab extends Component {
         </TouchableOpacity>
 
         <FlatList
+          bounces={false}
           style={{marginTop: 32}}
           data={this.data}
           renderItem={this.renderItem}

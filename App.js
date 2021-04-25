@@ -1,4 +1,4 @@
-import {Lightbox, Modal, Overlay, Router, Scene, Stack} from 'react-native-router-flux';
+import {Lightbox, Modal, Overlay, Router, Scene, Stack, Tabs} from 'react-native-router-flux';
 import React, {Component} from 'react';
 import {Text, View, Image} from 'react-native';
 import SplashScreen from './src/screens/SplashScreen';
@@ -12,6 +12,7 @@ import MoreTab from './src/screens/tabs/MoreTab';
 import SearchScreen from './src/screens/SearchScreen';
 import FilterScreen from './src/screens/FilterScreen';
 import RecipesDetails from './src/screens/RecipesDetails';
+import ProfileScreen from './src/screens/ProfileScreen';
 
 const tabIcon = ({key, title, focused}) => {
   let image = require('./src/assets/icons/ic_feed.png');
@@ -67,7 +68,7 @@ export default class App extends Component {
                 <Scene key="login" component={LoginScreen} title=""/>
                 <Scene key="register" component={RegisterScreen} title=""/>
                 <Scene key="forgetPassword" component={ForgetPasswordScreen} title=""/>
-                <Scene key={'home'} tabs showLabel={false} initial>
+                <Tabs key={'home'} showLabel={false}>
                   <Scene key={'feedTab'}
                          title={'My Feed'}
                          icon={tabIcon}
@@ -85,10 +86,11 @@ export default class App extends Component {
                          title={'More'}
                          icon={tabIcon}
                          component={MoreTab}/>
-                </Scene>
+                </Tabs>
+                <Scene key={'profile'} component={ProfileScreen} initial/>
                 <Scene key={'filter'} component={FilterScreen}/>
                 <Scene key={'search'} component={SearchScreen}/>
-                <Scene key={'recipeDetails'} component={RecipesDetails} initial/>
+                <Scene key={'recipeDetails'} component={RecipesDetails}/>
               </Stack>
             </Lightbox>
 

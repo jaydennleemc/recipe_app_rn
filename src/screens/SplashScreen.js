@@ -40,7 +40,7 @@ const PagingData = [
 
 
 const Page = ({key, title, detail, image, buttonTitle, hasButton}) => (
-  <View style={styles.page1} key={key}>
+  <View style={styles.page} key={key}>
     <View style={styles.cardContainer}>
       <View style={styles.cardViewTop}>
       </View>
@@ -98,16 +98,13 @@ export default class SplashScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-  page1: {
+  page: {
     // backgroundColor:'',
     flex: 1,
     width: Dimensions.get('window').width,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  page2: {},
-  page3: {},
-  page4: {},
   cardContainer: {
     width: '85%',
     shadowColor: '#000',

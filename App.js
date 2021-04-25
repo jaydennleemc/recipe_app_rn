@@ -11,6 +11,7 @@ import ShoppingListTab from './src/screens/tabs/ShoppingListTab';
 import MoreTab from './src/screens/tabs/MoreTab';
 import SearchScreen from './src/screens/SearchScreen';
 import FilterScreen from './src/screens/FilterScreen';
+import RecipesDetails from './src/screens/RecipesDetails';
 
 const tabIcon = ({key, title, focused}) => {
   let image = require('./src/assets/icons/ic_feed.png');
@@ -87,6 +88,7 @@ export default class App extends Component {
                 </Scene>
                 <Scene key={'filter'} component={FilterScreen}/>
                 <Scene key={'search'} component={SearchScreen}/>
+                <Scene key={'recipeDetails'} component={RecipesDetails} initial/>
               </Stack>
             </Lightbox>
 

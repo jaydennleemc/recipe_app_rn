@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, SafeAreaView, StyleSheet, FlatList, Image} from 'react-native';
+import {Text, View, SafeAreaView, StyleSheet, FlatList, Image, TouchableOpacity} from 'react-native';
 import {Rating} from 'react-native-ratings';
 import DottedLine from '../../components/DottedLine';
 
@@ -20,7 +20,7 @@ export default class FavoriteTab extends Component {
 
   renderItem = (item) => {
     return (
-      <View style={styles.cardContainer} key={item.key}>
+      <TouchableOpacity style={styles.cardContainer} key={item.key}>
         <View style={{width: 110, backgroundColor: 'lightgrey', borderTopLeftRadius: 10, borderTopRightRadius: 10}}>
         </View>
         <View style={{paddingVertical: 8, marginLeft: 16, borderBottomLeftRadius: 10, borderBottomRightRadius: 10}}>
@@ -53,7 +53,7 @@ export default class FavoriteTab extends Component {
             </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 

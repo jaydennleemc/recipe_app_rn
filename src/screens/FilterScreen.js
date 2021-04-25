@@ -25,6 +25,11 @@ const CheckBoxComp = (title, value, onToggle) => {
 
 export default class FilterScreen extends Component {
 
+  state = {};
+
+  sliderOnChange = (value) => {
+
+  };
 
   render() {
     return (
@@ -73,6 +78,8 @@ export default class FilterScreen extends Component {
         <View style={{marginHorizontal: 24, marginTop: 16, height: 1, backgroundColor: 'lightgrey'}}/>
         <Text style={{marginLeft: 24, marginTop: 16, fontWeight: 'bold', color: 'grey'}}>Ready In</Text>
         <Slider
+          minimumValue={0}
+          maximumValue={5}
           style={{marginHorizontal: 24}}
           thumbTintColor={'#e09178'}
           minimumTrackTintColor={'#e09178'}

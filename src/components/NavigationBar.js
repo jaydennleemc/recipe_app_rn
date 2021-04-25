@@ -1,14 +1,33 @@
 import React, {Component, PureComponent} from 'react';
-import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {Text, View, StyleSheet, Image, TouchableOpacity, TextInput} from 'react-native';
 
 export default class NavigationBar extends PureComponent {
+
+  renderSearchBar = () => {
+    return (
+      <TextInput
+        placeholder={'Search here'}
+        returnKeyType={'done'}
+        onSubmitEditing={this.props.onSearch}
+        style={{
+          paddingHorizontal: 5,
+          flex: 1,
+          color: 'grey',
+          backgroundColor: 'white',
+          borderRadius: 5,
+          marginLeft: 16,
+          height: 32,
+        }}/>
+    );
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={this.props.leftOnPress}>
           <Image style={styles.leftImage} source={require('../assets/icons/ic_back_arrow.png')}/>
         </TouchableOpacity>
-        <Text style={styles.title}>{this.props.title}</Text>
+        {this.props.searchMode ? this.renderSearchBar() : <Text style={styles.title}>{this.props.title}</Text>}
         <TouchableOpacity onPress={this.props.rightOnPress}>
           <Image style={styles.rightImage} source={this.props.rightImage}/>
         </TouchableOpacity>
@@ -37,8 +56,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   rightImage: {
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
     marginRight: 16,
   },
 });

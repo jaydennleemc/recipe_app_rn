@@ -10,17 +10,17 @@ export default class FeedTab extends Component {
     return (
       <View style={styles.container}>
         <SafeAreaView/>
-        <ScrollView>
+        <ScrollView style={{marginBottom: 16}}>
           <View style={styles.filterContainer} key={'filter'}>
             <TouchableOpacity onPress={() => {
               Actions.filter();
             }}>
-              <Image source={require('../../assets/icons/ic_slider.png')} style={{width: 40, height: 40, marginHorizontal: 8}}/>
+              <Image source={require('../../assets/icons/ic_slider.png')} style={{width: 32, height: 32, marginHorizontal: 8}}/>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {
               Actions.search();
             }}>
-              <Image source={require('../../assets/icons/ic_search.png')} style={{width: 40, height: 40, marginHorizontal: 8}}/>
+              <Image source={require('../../assets/icons/ic_search.png')} style={{width: 32, height: 32, marginHorizontal: 8}}/>
             </TouchableOpacity>
           </View>
           <View style={{flex: 1}}>

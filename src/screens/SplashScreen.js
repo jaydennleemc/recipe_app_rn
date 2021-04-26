@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Text, View, TouchableOpacity, ScrollView, Dimensions, StyleSheet, Image, Button} from 'react-native';
+import {Text, View, TouchableOpacity, ScrollView, Dimensions, StyleSheet, Image, Button, ActivityIndicator} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {IndicatorViewPager, PagerDotIndicator} from '@shankarmorwal/rn-viewpager';
 import {Actions} from 'react-native-router-flux';
 import uuid from 'react-native-uuid';
@@ -59,7 +60,26 @@ const Page = ({title, detail, image, buttonTitle, hasButton}) => (
 export default class SplashScreen extends Component {
 
   state = {
+    initialView: false,
     pageIndex: 0,
+  };
+
+  async componentDidMount() {
+    let user = await this.getUserInfo();
+    if (user) {
+      Actions.home();
+    } else {
+      this.setState({initialView: true});
+    }
+  }
+
+  getUserInfo = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('userInfo');
+      return jsonValue != null ? JSON.parse(jsonValue) : undefined;
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   renderDotIndicator() {
@@ -81,12 +101,15 @@ export default class SplashScreen extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <IndicatorViewPager
-          style={{flex: 1}}
-          onPageSelected={this.onPageSelected}
-          indicator={this.renderDotIndicator()}>
-          {PagingData.map(page => Page(page))}
-        </IndicatorViewPager>
+        {this.state.initialView ?
+          <IndicatorViewPager
+            style={{flex: 1}}
+            onPageSelected={this.onPageSelected}
+            indicator={this.renderDotIndicator()}>
+            {PagingData.map(page => Page(page))}
+          </IndicatorViewPager> :
+          <ActivityIndicator size={'large'} style={{width: 100, height: 100, alignSelf: 'center', marginTop: 16}}/>
+        }
       </View>
     );
   }

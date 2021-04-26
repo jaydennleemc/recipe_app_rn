@@ -1,55 +1,62 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, SafeAreaView, Image, TouchableOpacity, FlatList} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Actions} from 'react-native-router-flux';
+import uuid from 'react-native-uuid';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 export default class MoreTab extends Component {
 
   data = [
     {
-      key: 1,
       image: '',
       title: 'Home',
     },
     {
-      key: 2,
       image: '',
       title: 'Create your own recipe!',
     },
     {
-      key: 3,
       image: '',
       title: 'Saved',
     },
     {
-      key: 4,
       image: '',
       title: 'Challenge',
     },
     {
-      key: 5,
       image: '',
       title: 'Logout',
     },
     {
-      key: 6,
       image: '',
       title: 'Love this app?',
     },
     {
-      key: 7,
       image: '',
       title: 'FAQ',
     },
     {
-      key: 8,
       image: '',
       title: 'Settings',
     },
   ];
 
+  state = {
+    showLogoutDialog: false,
+  };
+
+  logoutUser = async () => {
+    this.setState({showLogoutDialog: false}, () => {
+      AsyncStorage.removeItem('userInfo', () => {
+        Actions.replace('splash');
+      });
+    });
+  };
+
   renderItem = ({item}) => {
     return (
-      <TouchableOpacity key={item.key} style={{flexDirection: 'row', alignItems: 'center', marginVertical: 8}} onPress={() => this.itemOnPress(item)}>
+      <TouchableOpacity key={uuid.v4()} style={{flexDirection: 'row', alignItems: 'center', marginVertical: 8}} onPress={() => this.itemOnPress(item)}>
         <Image source={require('../../assets/icons/ic_feed.png')} style={{height: 40, width: 40}}/>
         <Text style={{flex: 1, marginLeft: 16, fontSize: 20, color: '#685f58', fontWeight: 'bold'}}>{item.title}</Text>
         <Image source={require('../../assets/icons/ic_arrow_right.png')} style={{width: 20, height: 30}}/>
@@ -58,7 +65,10 @@ export default class MoreTab extends Component {
   };
 
   itemOnPress = (item) => {
-    console.log(item);
+    if (item.title == 'Logout') {
+      this.setState({showLogoutDialog: true});
+      return;
+    }
   };
 
   render() {
@@ -85,7 +95,28 @@ export default class MoreTab extends Component {
           style={{marginTop: 32}}
           data={this.data}
           renderItem={this.renderItem}
+          keyExtractor={(item) => item}
           ItemSeparatorComponent={() => <View style={{width: '100%', height: 2, backgroundColor: 'white'}}/>}/>
+
+        <AwesomeAlert
+          show={this.state.showLogoutDialog}
+          title=""
+          message="Logout?"
+          contentContainerStyle={{width: '60%', height: 'auto'}}
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          showCancelButton={true}
+          showConfirmButton={true}
+          cancelText="No"
+          confirmText="Yes"
+          confirmButtonColor="#e09178"
+          onCancelPressed={() => {
+            this.setState({showLogoutDialog: true});
+          }}
+          onConfirmPressed={async () => {
+            await this.logoutUser();
+          }}
+        />
       </View>
     );
   }

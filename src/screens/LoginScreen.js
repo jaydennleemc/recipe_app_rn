@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import {Text, View, SafeAreaView, StyleSheet, TextInput} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Actions} from 'react-native-router-flux';
+import Toast from 'react-native-toast-message';
+import {authUser} from '../firebase/Firestore';
 
 
 export default class LoginScreen extends Component {
@@ -12,12 +15,25 @@ export default class LoginScreen extends Component {
   };
 
   emailTextOnChange = (text) => {
-    console.log(text);
     this.setState({email: text});
   };
 
   passwordTextOnChange = (text) => {
     this.setState({password: text});
+  };
+
+  loginOnPress = async () => {
+    let user = await authUser(this.state.email, this.state.password);
+    if (user) {
+      await this.saveUserInfo(user);
+      Actions.home();
+    } else {
+      this.toast.show({
+        type: 'error',
+        position: 'bottom',
+        text1: 'Email or password invalid',
+      });
+    }
   };
 
   signUpOnPress = () => {
@@ -26,6 +42,14 @@ export default class LoginScreen extends Component {
 
   forgetPasswordOnPress = () => {
     Actions.push('forgetPassword');
+  };
+
+  saveUserInfo = async (user) => {
+    try {
+      await AsyncStorage.setItem('userInfo', JSON.stringify(user));
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   render() {
@@ -38,6 +62,7 @@ export default class LoginScreen extends Component {
           style={styles.emailTextInput}
           placeholder={'Email'}
           keyboardType="email-address"
+          autoCapitalize="none"
           onChangeText={this.emailTextOnChange}
           value={this.state.email}/>
         <TextInput
@@ -49,9 +74,7 @@ export default class LoginScreen extends Component {
           value={this.state.password}/>
         <TouchableOpacity
           containerStyle={styles.buttonContainer}
-          onPress={() => {
-            Actions.push('home');
-          }}>
+          onPress={this.loginOnPress}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         <View style={styles.bottomViewContainer}>
@@ -62,6 +85,7 @@ export default class LoginScreen extends Component {
             <Text style={styles.forgotText}>Forgot password?</Text>
           </TouchableOpacity>
         </View>
+        <Toast ref={(ref) => this.toast = ref}/>
       </View>
     );
   }

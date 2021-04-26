@@ -59,7 +59,7 @@ const tabIcon = ({key, title, focused}) => {
 export default class App extends Component {
   render() {
     return (
-      <Router>
+      <Router duration={50}>
         <Overlay key={'overlay'}>
           <Modal key="modal" hideNavBar>
             <Lightbox key="lightbox">
@@ -68,7 +68,7 @@ export default class App extends Component {
                 <Scene key="login" component={LoginScreen} title=""/>
                 <Scene key="register" component={RegisterScreen} title=""/>
                 <Scene key="forgetPassword" component={ForgetPasswordScreen} title=""/>
-                <Tabs key={'home'} showLabel={false}>
+                <Tabs type={'replace'} key={'home'} showLabel={false}>
                   <Scene key={'feedTab'}
                          title={'My Feed'}
                          icon={tabIcon}
@@ -87,7 +87,7 @@ export default class App extends Component {
                          icon={tabIcon}
                          component={MoreTab}/>
                 </Tabs>
-                <Scene key={'profile'} component={ProfileScreen} initial/>
+                <Scene key={'profile'} component={ProfileScreen}/>
                 <Scene key={'filter'} component={FilterScreen}/>
                 <Scene key={'search'} component={SearchScreen}/>
                 <Scene key={'recipeDetails'} component={RecipesDetails}/>

@@ -14,7 +14,7 @@
 		3837DE95A8F735961B72EAA7 /* libPods-CookBookApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EFE950323DB8F3C5F2FC2653 /* libPods-CookBookApp.a */; };
 		70723C2BD48D6EC62AEE486D /* libPods-CookBookApp-CookBookAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5679B96E3E499782051CFC8A /* libPods-CookBookApp-CookBookAppTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		8B8092772636F128003EBF77 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8B8092762636F128003EBF77 /* GoogleService-Info.plist */; };
+		8B8A186426386A3100A7C17E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8B8A186326386A3000A7C17E /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,8 +44,7 @@
 		30944111B2BBDD0B764BD025 /* Pods-cookBookApp-cookBookAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cookBookApp-cookBookAppTests.debug.xcconfig"; path = "Target Support Files/Pods-cookBookApp-cookBookAppTests/Pods-cookBookApp-cookBookAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5679B96E3E499782051CFC8A /* libPods-CookBookApp-CookBookAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CookBookApp-CookBookAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = cookBookApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8B8092762636F128003EBF77 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		8B80927A2636F12A003EBF77 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8B8A186326386A3000A7C17E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C7D06F7CE1B877AFB1A4EF11 /* Pods-CookBookApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookBookApp.release.xcconfig"; path = "Target Support Files/Pods-CookBookApp/Pods-CookBookApp.release.xcconfig"; sourceTree = "<group>"; };
 		E20E67B3DD2D87BB8F71C186 /* Pods-CookBookApp-CookBookAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookBookApp-CookBookAppTests.debug.xcconfig"; path = "Target Support Files/Pods-CookBookApp-CookBookAppTests/Pods-CookBookApp-CookBookAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EBFAB18934F01863201C18CF /* Pods-cookBookApp-cookBookAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cookBookApp-cookBookAppTests.release.xcconfig"; path = "Target Support Files/Pods-cookBookApp-cookBookAppTests/Pods-cookBookApp-cookBookAppTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -98,7 +97,7 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				8B80927A2636F12A003EBF77 /* GoogleService-Info.plist */,
+				8B8A186326386A3000A7C17E /* GoogleService-Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
@@ -140,7 +139,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				8B8092762636F128003EBF77 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* CookBookApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* CookBookAppTests */,
@@ -273,8 +271,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				8B8A186426386A3100A7C17E /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				8B8092772636F128003EBF77 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

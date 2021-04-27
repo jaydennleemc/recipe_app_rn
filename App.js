@@ -13,6 +13,7 @@ import SearchScreen from './src/screens/SearchScreen';
 import FilterScreen from './src/screens/FilterScreen';
 import RecipesDetails from './src/screens/RecipesDetails';
 import ProfileScreen from './src/screens/ProfileScreen';
+import SeeAllRecipes from './src/screens/SeeAllRecipes';
 
 const tabIcon = ({key, title, focused}) => {
   let image = require('./src/assets/icons/ic_feed.png');
@@ -79,7 +80,7 @@ export default class App extends Component {
                          icon={tabIcon}
                          component={FavoriteTab}/>
                   <Scene key={'shoppingListTab'}
-                         title={'Shopping'}
+                         title={'Challenge'}
                          icon={tabIcon}
                          component={ShoppingListTab}/>
                   <Scene key={'moreTab'}
@@ -87,6 +88,7 @@ export default class App extends Component {
                          icon={tabIcon}
                          component={MoreTab}/>
                 </Tabs>
+                <Scene key={'allRecipes'} component={SeeAllRecipes}/>
                 <Scene key={'profile'} component={ProfileScreen}/>
                 <Scene key={'filter'} component={FilterScreen}/>
                 <Scene key={'search'} component={SearchScreen}/>

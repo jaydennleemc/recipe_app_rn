@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {Text, View, TouchableOpacity, ScrollView, Dimensions, StyleSheet, Image, Button, ActivityIndicator} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {IndicatorViewPager, PagerDotIndicator} from '@shankarmorwal/rn-viewpager';
 import {Actions} from 'react-native-router-flux';
 import uuid from 'react-native-uuid';
+import {getUserInfo} from '../components/Utils';
 
 const PagingData = [
   {
@@ -65,22 +65,13 @@ export default class SplashScreen extends Component {
   };
 
   async componentDidMount() {
-    let user = await this.getUserInfo();
+    let user = await getUserInfo();
     if (user) {
       Actions.home();
     } else {
       this.setState({initialView: true});
     }
   }
-
-  getUserInfo = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem('userInfo');
-      return jsonValue != null ? JSON.parse(jsonValue) : undefined;
-    } catch (e) {
-      console.error(e);
-    }
-  };
 
   renderDotIndicator() {
     return (

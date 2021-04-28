@@ -1,143 +1,152 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, Image, SafeAreaView, TouchableOpacity, TextInput, Dimensions, Platform, ScrollView, Keyboard} from 'react-native';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {Text, View, StyleSheet, Image, SafeAreaView, TouchableOpacity, TextInput, Dimensions, Platform, ScrollView, Keyboard, FlatList} from 'react-native';
 import NavigationBar from '../components/NavigationBar';
 import {Actions} from 'react-native-router-flux';
+import {TabBar, TabView} from 'react-native-tab-view';
+import {getFavoriteRecipes, usersCollection} from '../firebase/Firestore';
+import RecipeVerticalItem from '../components/RecipeVerticalItem';
+import {getUserInfo} from '../components/Utils';
+
+const FirstRoute = (data) => (
+  <FlatList
+    style={{marginHorizontal: 8, marginTop: 16}}
+    data={data}
+    renderItem={({item}) => <RecipeVerticalItem item={item}/>}/>
+);
+
+const SecondRoute = (data) => (
+  <FlatList
+    style={{marginHorizontal: 8, marginTop: 16}}
+    data={data}
+    renderItem={({item}) => <RecipeVerticalItem item={item}/>}/>
+);
+
+const ThreeRoute = (data) => (
+  <FlatList
+    style={{marginHorizontal: 8, marginTop: 16}}
+    data={data}
+    renderItem={({item}) => <RecipeVerticalItem item={item}/>}/>
+);
 
 export default class ProfileScreen extends Component {
 
-  keyboardOffSet = 0;
-
   state = {
-    name: '',
-    country: '',
-    quotes: '',
+    index: 0,
+    routes: [
+      {key: 'first', title: 'Favorites'},
+      {key: 'second', title: 'SAVED'},
+      {key: 'three', title: 'Friends'},
+    ],
+    username: '',
+    favoritesRecipes: [],
   };
+
 
   componentDidMount() {
-    Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
-    Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+    getUserInfo().then(resp => {
+      this.setState({username: resp.name});
+    }).catch(err => {
+      console.error(err);
+    });
+    getFavoriteRecipes().then((resp => {
+      this.setState({favoritesRecipes: resp.docs});
+    })).catch(err => {
+      console.error(err);
+    });
   }
 
-  componentWillUnmount() {
-    Keyboard.removeListener('keyboardDidShow', this._keyboardDidShow);
-    Keyboard.removeListener('keyboardDidHide', this._keyboardDidHide);
-  }
-
-  _keyboardDidShow = () => {
-    this.keyboardOffSet = 180;
+  renderScene = ({route}) => {
+    switch (route.key) {
+      case 'first':
+        return FirstRoute(this.state.favoritesRecipes);
+      case 'second':
+        return SecondRoute(this.state.favoritesRecipes);
+      case 'three':
+        return ThreeRoute(this.state.favoritesRecipes);
+      default:
+        return null;
+    }
   };
 
-  _keyboardDidHide = () => {
-    this.keyboardOffSet = 0;
-  };
-
-  onNameChange = (text) => {
-    this.setState({name: text});
-  };
-
-  onCountryChange = (text) => {
-    this.setState({country: text});
-  };
-
-  onQuotesChanges = (text) => {
-    this.setState({quotes: text});
-  };
+  renderTabBar = (props) => (
+    <TabBar
+      {...props}
+      renderLabel={({route, focused, color}) => (
+        <Text style={{color: focused ? '#e09178' : 'lightgrey', margin: 8}}>{route.title}</Text>
+      )}
+      indicatorStyle={{backgroundColor: '#e09178'}}
+      style={{backgroundColor: 'transparent'}}
+    />
+  );
 
   render() {
     return (
-      <KeyboardAwareScrollView
-        style={{flex: 1}}
-        resetScrollToCoords={{x: 0, y: 0}}
-        contentContainerStyle={styles.container}
-        scrollEnabled={false}>
-        <View style={{alignItems: 'center'}}>
-          <SafeAreaView/>
-          <NavigationBar
-            title={'Edit Profile'}
-            leftOnPress={() => {
-              Actions.pop();
-            }}/>
+      <View style={{alignItems: 'center', flex: 1}}>
+        <SafeAreaView/>
+        <NavigationBar
+          title={'Chef information'}
+          leftOnPress={() => {
+            Actions.pop();
+          }}/>
+
+        <View style={{width: '100%', alignItems: 'center'}}>
           <Image
             source={require('../assets/icons/icons8-mushbooh-food-50.png')}
-            style={{height: 200, width: 200, borderWidth: 1, borderRadius: 100, borderColor: 'red'}}/>
-          <TouchableOpacity
-            style={[styles.shadow, {flexDirection: 'row', alignItems: 'center', marginTop: 16, backgroundColor: 'white', padding: 8, borderRadius: 10}]}>
-            <Image source={require('../assets/icons/ic_timer.png')} style={{width: 20, height: 20, marginRight: 16}}/>
-            <Text style={{color: 'grey', fontWeight: 'bold'}}>Add profile photo</Text>
-          </TouchableOpacity>
-          <Text style={{alignSelf: 'flex-start', marginLeft: 16, marginTop: 16, fontSize: 20, fontWeight: 'bold', color: '#685f58'}}>Name</Text>
-          <TextInput
-            style={styles.inputStyle}
-            placeholder={'Your Name'}
-            onChangeText={this.onNameChange}
-            value={this.state.name}/>
-          <TextInput
-            style={styles.inputStyle}
-            placeholder={'Your Country'}
-            onChangeText={this.onCountryChange}
-            value={this.state.country}/>
-          <TextInput
-            style={styles.inputStyle}
-            placeholder={'Your Quotes...'}
-            onChangeText={this.onQuotesChanges}
-            value={this.state.quotes}/>
+            style={{height: 150, width: 150, borderWidth: 2, borderRadius: 100, borderColor: '#e09178', marginTop: 8}}/>
 
           <TouchableOpacity
-            style={styles.buttonContainer}
+            style={{position: 'absolute', right: 16, top: -32}}
             onPress={() => {
-
+              Actions.editProfile();
             }}>
-            <Text style={styles.buttonText}>Save</Text>
+            <Text style={{fontSize: 40, color: '#e09178'}}>...</Text>
           </TouchableOpacity>
         </View>
-      </KeyboardAwareScrollView>
+        <Text style={{color: '#685f58', fontWeight: 'bold', marginTop: 16, fontSize: 18}}>{this.state.username}</Text>
+
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', width: '90%%'}}>
+          <View>
+            <Text style={{color: '#e09178', fontWeight: 'bold', marginTop: 16, fontSize: 18, textAlign: 'center'}}>25</Text>
+            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+              <Image
+                source={require('../assets/icons/icons8-mushbooh-food-50.png')}
+                style={{height: 24, width: 24, borderWidth: 2, borderRadius: 100, borderColor: '#e09178', marginTop: 8}}/>
+              <Text style={{color: 'grey', fontSize: 14, marginTop: 8, marginLeft: 8, fontWeight: '600'}}>Followers</Text>
+            </View>
+          </View>
+
+          <View>
+            <Text style={{color: '#e09178', fontWeight: 'bold', marginTop: 16, fontSize: 18, textAlign: 'center'}}>25</Text>
+            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+              <Image
+                source={require('../assets/icons/icons8-mushbooh-food-50.png')}
+                style={{height: 24, width: 24, borderWidth: 2, borderRadius: 100, borderColor: '#e09178', marginTop: 8}}/>
+              <Text style={{color: 'grey', fontSize: 14, marginTop: 8, marginLeft: 8, fontWeight: '600'}}>Favorites</Text>
+            </View>
+          </View>
+
+          <View>
+            <Text style={{color: '#e09178', fontWeight: 'bold', marginTop: 16, fontSize: 18, textAlign: 'center'}}>25</Text>
+            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+              <Image
+                source={require('../assets/icons/icons8-mushbooh-food-50.png')}
+                style={{height: 24, width: 24, borderWidth: 2, borderRadius: 100, borderColor: '#e09178', marginTop: 8}}/>
+              <Text style={{color: 'grey', fontSize: 14, marginTop: 8, marginLeft: 8, fontWeight: '600'}}>Made dishes</Text>
+            </View>
+          </View>
+        </View>
+
+        <View style={{height: 1, width: '100%', backgroundColor: '#e09178', marginTop: 16, opacity: 0.5}}/>
+
+        <TabView
+          style={{width: '100%'}}
+          navigationState={this.state}
+          renderScene={this.renderScene}
+          renderTabBar={this.renderTabBar}
+          onIndexChange={(index) => {
+            this.setState({index});
+          }}/>
+      </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  shadow: {
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.20,
-    shadowRadius: 1.41,
-    elevation: 6,
-  },
-  inputStyle: {
-    width: Dimensions.get('window').width - 32,
-    height: 42,
-    marginTop: 32,
-    borderBottomWidth: 1,
-    borderColor: 'grey',
-  },
-  buttonContainer: {
-    backgroundColor: '#e09178',
-    width: Dimensions.get('window').width - 64,
-    height: 50,
-    marginTop: 32,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3,
-  },
-  buttonText: {
-    fontWeight: 'bold',
-    color: 'white',
-    fontSize: 20,
-  },
-});

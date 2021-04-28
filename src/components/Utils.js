@@ -1,3 +1,5 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export const timeConvert = (n) => {
   let num = n;
   let hours = (num / 60);
@@ -9,4 +11,13 @@ export const timeConvert = (n) => {
     return hours + 'h' + rminutes + 'm';
   }
   return hours + 'h';
+};
+
+export const getUserInfo = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem('userInfo');
+    return jsonValue != null ? JSON.parse(jsonValue) : undefined;
+  } catch (e) {
+    console.error(e);
+  }
 };

@@ -9,6 +9,7 @@ export default class NavigationBar extends PureComponent {
         placeholder={'Search here'}
         returnKeyType={'done'}
         onSubmitEditing={this.props.onSearch}
+        autoCapitalize={'none'}
         style={{
           paddingHorizontal: 5,
           flex: 1,

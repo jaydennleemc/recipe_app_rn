@@ -14,10 +14,10 @@ import FilterScreen from './src/screens/FilterScreen';
 import RecipesDetails from './src/screens/RecipesDetails';
 import ProfileScreen from './src/screens/ProfileScreen';
 import SeeAllRecipes from './src/screens/SeeAllRecipes';
+import EditProfileScreen from './src/screens/EditProfileScreen';
 
-const tabIcon = ({key, title, focused}) => {
+const tabIcon = ({title, focused}) => {
   let image = require('./src/assets/icons/ic_feed.png');
-  console.log(title);
   switch (title) {
     case 'My Feed':
       if (focused) {
@@ -90,6 +90,7 @@ export default class App extends Component {
                 </Tabs>
                 <Scene key={'allRecipes'} component={SeeAllRecipes}/>
                 <Scene key={'profile'} component={ProfileScreen}/>
+                <Scene key={'editProfile'} component={EditProfileScreen}/>
                 <Scene key={'filter'} component={FilterScreen}/>
                 <Scene key={'search'} component={SearchScreen}/>
                 <Scene key={'recipeDetails'} component={RecipesDetails}/>

@@ -1,4 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
+import {getUserInfo} from '../components/Utils';
 
 export const usersCollection = firestore().collection('users');
 export const recipeCollections = firestore().collection('recipes');
@@ -15,6 +16,12 @@ export const authUser = async (email, password) => {
 export const getWeeklyRecipes = async () => {
   let recipes = await recipeCollections.where('isWeekly', '==', true).get();
 
+  let ids = [];
+
+  recipes.docs.forEach(e => {
+    ids.push(e.id);
+  });
+
   // let data = recipes.docs[0].data();
   // data.isWeekly = false
   // data.type = 'appetizer'
@@ -30,6 +37,12 @@ export const getWeeklyRecipes = async () => {
 
 export const getRecipesByType = async (type) => {
   let recipes = await recipeCollections.where('type', '==', type).get();
+  return recipes;
+};
+
+export const getFavoriteRecipes = async () => {
+  let user = await getUserInfo();
+  let recipes = await recipeCollections.where(firestore.FieldPath.documentId(), 'in', user.favorites).get();
   return recipes;
 };
 

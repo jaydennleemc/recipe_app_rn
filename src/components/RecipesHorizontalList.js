@@ -1,5 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import {FlatList, Text, TouchableOpacity, View, StyleSheet, Image} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import {Rating} from 'react-native-ratings';
 import DottedLine from './DottedLine';
 import uuid from 'react-native-uuid';
@@ -30,14 +31,14 @@ export default class RecipesHorizontalList extends PureComponent {
           Actions.push('recipeDetails', {data: item.data()});
         }}>
         <View style={{height: 150, borderRadius: 10}}>
-          <Image source={{uri: item.data().thumbnail}} style={{width: '100%', height: 150, borderRadius: 10}}/>
+          <FastImage source={{uri: item.data().thumbnail}} style={{width: '100%', height: 150, borderRadius: 10}}/>
           <TouchableOpacity style={{width: 40, height: 40, backgroundColor: 'red', position: 'absolute', right: 8, top: 8, borderRadius: 25, alignSelf: 'center', justifyContent: 'center'}}>
-            <Image source={require('../assets/icons/ic_favorite.png')} style={{width: 30, height: 30, alignSelf: 'center'}}/>
+            <FastImage source={require('../assets/icons/ic_favorite.png')} style={{width: 30, height: 30, alignSelf: 'center'}}/>
           </TouchableOpacity>
         </View>
         <View style={{height: 180, marginLeft: 16, borderBottomLeftRadius: 10, borderBottomRightRadius: 10}}>
           <TouchableOpacity style={{width: 40, height: 40, backgroundColor: '#e09178', alignSelf: 'flex-end', borderRadius: 50, marginTop: -20, marginRight: 8, justifyContent: 'center'}}>
-            <Image source={require('../assets/icons/ic_favorite.png')} style={{width: 30, height: 30, alignSelf: 'center'}}/>
+            <FastImage source={require('../assets/icons/ic_favorite.png')} style={{width: 30, height: 30, alignSelf: 'center'}}/>
           </TouchableOpacity>
           <Text style={{fontSize: 20, fontWeight: 'bold', color: '#685f58', marginTop: 8, alignSelf: 'center'}}>{item.data().name}</Text>
           <View style={{flexDirection: 'row', marginTop: 16, marginLeft: 8}}>
@@ -58,11 +59,11 @@ export default class RecipesHorizontalList extends PureComponent {
           </View>
           <View style={{marginTop: 16, flexDirection: 'row', justifyContent: 'space-around'}}>
             <View style={{flexDirection: 'row'}}>
-              <Image source={require('../assets/icons/ic_timer.png')} style={{width: 20, height: 20}}/>
+              <FastImage source={require('../assets/icons/ic_timer.png')} style={{width: 20, height: 20}}/>
               <Text style={{alignSelf: 'center', marginLeft: 8, color: '#685f58', fontWeight: '500'}}>{timeConvert(item.data().totalMins)}</Text>
             </View>
             <View style={{flexDirection: 'row'}}>
-              <Image source={require('../assets/icons/ic_kitchen.png')} style={{width: 20, height: 20}}/>
+              <FastImage source={require('../assets/icons/ic_kitchen.png')} style={{width: 20, height: 20}}/>
               <Text style={{alignSelf: 'center', marginLeft: 8, color: '#685f58', fontWeight: '500'}}>{item.data().servings} servings</Text>
             </View>
           </View>
@@ -88,6 +89,8 @@ export default class RecipesHorizontalList extends PureComponent {
           style={{marginTop: 32, marginLeft: 16, overflow: 'hidden'}}
           horizontal
           data={this.props.data}
+          extraData={this.props}
+          keyExtractor={(item) => uuid.v4()}
           ItemSeparatorComponent={() => <View style={{width: 16, backgroundColor: 'transparent', opacity: 0.1}}/>}
           renderItem={this.renderItem}/>}
       </View>

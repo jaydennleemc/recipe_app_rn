@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, Image, SafeAreaView, TouchableOpacity, TextInput, Dimensions, Platform, ScrollView, Keyboard} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import NavigationBar from '../components/NavigationBar';
 import {Actions} from 'react-native-router-flux';
@@ -63,7 +64,7 @@ export default class EditProfileScreen extends Component {
             style={{height: 200, width: 200, borderWidth: 1, borderRadius: 100, borderColor: '#e09178'}}/>
           <TouchableOpacity
             style={[styles.shadow, {flexDirection: 'row', alignItems: 'center', marginTop: 16, backgroundColor: 'white', padding: 8, borderRadius: 10}]}>
-            <Image source={require('../assets/icons/ic_timer.png')} style={{width: 20, height: 20, marginRight: 16}}/>
+            <FastImage source={require('../assets/icons/ic_timer.png')} style={{width: 20, height: 20, marginRight: 16}}/>
             <Text style={{color: 'grey', fontWeight: 'bold'}}>Add profile photo</Text>
           </TouchableOpacity>
           <Text style={{alignSelf: 'flex-start', marginLeft: 16, marginTop: 16, fontSize: 20, fontWeight: 'bold', color: '#685f58'}}>Name</Text>

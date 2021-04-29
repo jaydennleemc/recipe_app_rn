@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Text, View, TouchableOpacity, ScrollView, Dimensions, StyleSheet, Image, Button, ActivityIndicator} from 'react-native';
+import FastImage from 'react-native-fast-image'
 import {IndicatorViewPager, PagerDotIndicator} from '@shankarmorwal/rn-viewpager';
 import {Actions} from 'react-native-router-flux';
 import uuid from 'react-native-uuid';
@@ -44,7 +45,7 @@ const Page = ({title, detail, image, buttonTitle, hasButton}) => (
       <View style={styles.cardViewBottom}>
         <Text style={styles.cardTitle}>{title}</Text>
         <Text style={styles.cardDetail}>{detail}</Text>
-        {image ? <Image source={image} style={styles.cardImage}/> : null}
+        {image ? <FastImage source={image} style={styles.cardImage}/> : null}
         {hasButton ?
           <TouchableOpacity style={styles.loginButton} onPress={() => {
             Actions.replace('login');

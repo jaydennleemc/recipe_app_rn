@@ -1,5 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import {Dimensions, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import {IndicatorViewPager, PagerDotIndicator} from '@shankarmorwal/rn-viewpager';
 import {Rating} from 'react-native-ratings';
 import DottedLine from './DottedLine';
@@ -17,7 +18,7 @@ const ItemComp = (item) => {
       }}>
       <View style={styles.cardContainer}>
         <View style={{backgroundColor: 'lightgrey', width: 150, borderRadius: 10}}>
-          <Image source={{uri: item.thumbnail}} style={{width: 150, height: 150, borderRadius: 10}}/>
+          <FastImage source={{uri: item.thumbnail}} style={{width: 150, height: 150, borderRadius: 10}}/>
         </View>
         <View style={{marginLeft: 16}}>
           <Text style={{marginTop: 16, color: '#685f58', fontWeight: 'bold', fontSize: 20}}>{item.name}</Text>
@@ -35,7 +36,7 @@ const ItemComp = (item) => {
           <DottedLine margin={-32}/>
           <View style={{flexDirection: 'row', marginTop: 8, alignItems: 'center'}}>
             <View style={{width: 24, height: 24, borderRadius: 20, backgroundColor: 'grey', alignItems: 'center', justifyContent: 'center'}}>
-              <Image source={{uri: item.authorImage}} style={{width: 24, height: 24, borderRadius: 20}}/>
+              <FastImage source={{uri: item.authorImage}} style={{width: 24, height: 24, borderRadius: 20}}/>
             </View>
             <Text style={{marginLeft: 8, fontWeight: '500', color: '#685f58', fontSize: 14}}>Recipe By {item.author}</Text>
           </View>

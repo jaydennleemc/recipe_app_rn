@@ -1,5 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import {Text, View, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, Image, Dimensions} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import NavigationBar from '../components/NavigationBar';
 import {Actions} from 'react-native-router-flux';
 import {Rating} from 'react-native-ratings';
@@ -12,7 +13,7 @@ import {recipeCollections} from '../firebase/Firestore';
 const MaterialComp = (material) => (
   <View key={uuid.v4()}>
     <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 8}}>
-      <Image source={require('../assets/icons/ic_favorite_selected.png')} style={{width: 30, height: 30}}/>
+      <FastImage source={require('../assets/icons/ic_favorite_selected.png')} style={{width: 30, height: 30}}/>
       <Text style={{fontSize: 18, fontWeight: 'bold', color: '#685f58', marginLeft: 16}}>{material}</Text>
     </View>
     <View style={{height: 1, backgroundColor: 'lightgrey', marginTop: 8}}/>
@@ -30,7 +31,7 @@ const FirstRoute = (data) => (
   <View>
     <View style={{flexDirection: 'row'}}>
       <View style={{marginTop: 24, height: 80}}>
-        <Image
+        <FastImage
           source={{uri: data.authorImage}}
           style={{width: 50, height: 50, borderRadius: 25, borderWidth: 1, borderColor: '#e09178'}}/>
         <Text style={{fontWeight: '600', fontSize: 10, marginTop: 4, alignSelf: 'center'}}>{data.name}</Text>
@@ -44,9 +45,9 @@ const FirstRoute = (data) => (
     <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 16, alignItems: 'center'}}>
       <Text style={{fontSize: 22, fontWeight: 'bold', color: '#685f58'}}>Ingredients</Text>
       <TouchableOpacity style={[styles.shadow, {backgroundColor: 'white', borderRadius: 5, flexDirection: 'row', alignItems: 'center'}]}>
-        <Image source={require('../assets/icons/ic_search.png')} style={{width: 20, height: 20, marginLeft: 4}}/>
+        <FastImage source={require('../assets/icons/ic_search.png')} style={{width: 20, height: 20, marginLeft: 4}}/>
         <Text style={{padding: 8, fontWeight: '600', color: 'grey'}}>Share</Text>
-        <Image source={require('../assets/icons/ic_arrow_right.png')} style={{width: 20, height: 20, marginRight: 4}}/>
+        <FastImage source={require('../assets/icons/ic_arrow_right.png')} style={{width: 20, height: 20, marginRight: 4}}/>
       </TouchableOpacity>
     </View>
 
@@ -60,7 +61,7 @@ const SecondRoute = (data) => (
   <View style={{flex: 1}}>
     <Text style={{fontSize: 30, fontWeight: '500', color: '#685f58', marginTop: 16}}>Directions</Text>
     <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 32}}>
-      <Image source={require('../assets/icons/ic_timer.png')} style={{width: 30, height: 30}}/>
+      <FastImage source={require('../assets/icons/ic_timer.png')} style={{width: 30, height: 30}}/>
       <View style={{flexDirection: 'row', flex: 1, marginHorizontal: 32, justifyContent: 'space-between'}}>
         <View>
           <Text style={{color: 'grey'}}>Prep </Text>
@@ -116,7 +117,7 @@ export default class RecipesDetails extends PureComponent {
     return (
       <View key={uuid.v4()} style={{flex: 1, justifyContent: 'center'}}>
         <View style={styles.cardContainer}>
-          <Image
+          <FastImage
             source={{uri: image}}
             style={{width: '100%', height: '100%', alignSelf: 'center', padding: 8, borderRadius: 10}}/>
           {index == 0 ?
@@ -191,15 +192,15 @@ export default class RecipesDetails extends PureComponent {
             </View>
             <View style={{flexDirection: 'row', marginTop: 16, justifyContent: 'space-around', marginRight: 60}}>
               <TouchableOpacity style={[styles.shadow, {backgroundColor: 'white', borderRadius: 5, flexDirection: 'row', alignItems: 'center'}]}>
-                <Image source={require('../assets/icons/ic_search.png')} style={{width: 20, height: 20, marginLeft: 4}}/>
+                <FastImage source={require('../assets/icons/ic_search.png')} style={{width: 20, height: 20, marginLeft: 4}}/>
                 <Text style={{padding: 8, fontWeight: '600', color: 'grey'}}>Save</Text>
               </TouchableOpacity>
               <TouchableOpacity style={[styles.shadow, {backgroundColor: 'white', borderRadius: 5, flexDirection: 'row', alignItems: 'center'}]}>
-                <Image source={require('../assets/icons/ic_search.png')} style={{width: 20, height: 20, marginLeft: 4}}/>
+                <FastImage source={require('../assets/icons/ic_search.png')} style={{width: 20, height: 20, marginLeft: 4}}/>
                 <Text style={{padding: 8, fontWeight: '600', color: 'grey'}}>Share</Text>
               </TouchableOpacity>
               <TouchableOpacity style={[styles.shadow, {backgroundColor: 'white', borderRadius: 5, flexDirection: 'row', alignItems: 'center'}]}>
-                <Image source={require('../assets/icons/ic_search.png')} style={{width: 20, height: 20, marginLeft: 4}}/>
+                <FastImage source={require('../assets/icons/ic_search.png')} style={{width: 20, height: 20, marginLeft: 4}}/>
                 <Text style={{padding: 8, fontWeight: '600', color: 'grey'}}>Feedback</Text>
               </TouchableOpacity>
             </View>

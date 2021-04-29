@@ -1,5 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import {Text, View, StyleSheet, Image, TouchableOpacity, TextInput} from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 export default class NavigationBar extends PureComponent {
 
@@ -26,11 +27,11 @@ export default class NavigationBar extends PureComponent {
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={this.props.leftOnPress}>
-          <Image style={styles.leftImage} source={require('../assets/icons/ic_back_arrow.png')}/>
+          <FastImage style={styles.leftImage} source={require('../assets/icons/ic_back_arrow.png')}/>
         </TouchableOpacity>
         {this.props.searchMode ? this.renderSearchBar() : <Text style={styles.title}>{this.props.title}</Text>}
         <TouchableOpacity onPress={this.props.rightOnPress}>
-          <Image style={styles.rightImage} source={this.props.rightImage}/>
+          <FastImage style={styles.rightImage} source={this.props.rightImage}/>
         </TouchableOpacity>
       </View>
     );

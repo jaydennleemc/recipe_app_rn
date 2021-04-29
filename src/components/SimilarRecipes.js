@@ -1,5 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import {FlatList, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import {Rating} from 'react-native-ratings';
 import DottedLine from './DottedLine';
 import uuid from 'react-native-uuid';
@@ -12,7 +13,7 @@ export default class SimilarRecipes extends PureComponent {
     return (
       <TouchableOpacity style={styles.cardContainer} key={uuid.v4()}>
         <View style={{width: 110, backgroundColor: 'lightgrey', borderRadius: 10}}>
-          <Image source={{uri: item.data().thumbnail}} style={{width: 110, height: 160, borderRadius: 10}}/>
+          <FastImage source={{uri: item.data().thumbnail}} style={{width: 110, height: 160, borderRadius: 10}}/>
         </View>
         <View style={{paddingVertical: 8, marginLeft: 16, borderBottomLeftRadius: 10, borderBottomRightRadius: 10}}>
           <Text style={{fontSize: 20, fontWeight: 'bold', color: '#685f58', marginTop: 8}}>{item.data().name}</Text>
@@ -34,11 +35,11 @@ export default class SimilarRecipes extends PureComponent {
           </View>
           <View style={{marginTop: 16, flexDirection: 'row', justifyContent: 'space-around'}}>
             <View style={{flexDirection: 'row'}}>
-              <Image source={require('../assets/icons/ic_timer.png')} style={{width: 20, height: 20}}/>
+              <FastImage source={require('../assets/icons/ic_timer.png')} style={{width: 20, height: 20}}/>
               <Text style={{alignSelf: 'center', marginLeft: 8, color: '#685f58', fontWeight: '500'}}>{timeConvert(item.data().totalMins)}</Text>
             </View>
             <View style={{flexDirection: 'row'}}>
-              <Image source={require('../assets/icons/ic_kitchen.png')} style={{width: 20, height: 20}}/>
+              <FastImage source={require('../assets/icons/ic_kitchen.png')} style={{width: 20, height: 20}}/>
               <Text style={{alignSelf: 'center', marginLeft: 8, color: '#685f58', fontWeight: '500'}}>{item.data().servings} servings</Text>
             </View>
           </View>

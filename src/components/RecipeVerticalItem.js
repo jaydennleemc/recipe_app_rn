@@ -1,5 +1,6 @@
 import React, {Component, PureComponent} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import uuid from 'react-native-uuid';
 import {Rating} from 'react-native-ratings';
 import DottedLine from './DottedLine';
@@ -17,7 +18,7 @@ export default class RecipeVerticalItem extends PureComponent {
           Actions.push('recipeDetails', {data: this.props.item.data()});
         }}>
         <View style={{width: 110, backgroundColor: 'lightgrey', borderRadius: 10}}>
-          <Image source={{uri: this.props.item.data().thumbnail}} style={{width: 110, height: 160, borderRadius: 10}}/>
+          <FastImage source={{uri: this.props.item.data().thumbnail}} style={{width: 110, height: 160, borderRadius: 10}}/>
         </View>
         <View style={{paddingVertical: 8, marginLeft: 16, borderBottomLeftRadius: 10, borderBottomRightRadius: 10}}>
           <Text style={{fontSize: 20, fontWeight: 'bold', color: '#685f58', marginTop: 8}}>{this.props.item.data().name}</Text>
@@ -39,11 +40,11 @@ export default class RecipeVerticalItem extends PureComponent {
           </View>
           <View style={{marginTop: 16, flexDirection: 'row', justifyContent: 'space-around'}}>
             <View style={{flexDirection: 'row'}}>
-              <Image source={require('../assets/icons/ic_timer.png')} style={{width: 20, height: 20}}/>
+              <FastImage source={require('../assets/icons/ic_timer.png')} style={{width: 20, height: 20}}/>
               <Text style={{alignSelf: 'center', marginLeft: 8, color: '#685f58', fontWeight: '500'}}>{timeConvert(this.props.item.data().totalMins)}</Text>
             </View>
             <View style={{flexDirection: 'row'}}>
-              <Image source={require('../assets/icons/ic_kitchen.png')} style={{width: 20, height: 20}}/>
+              <FastImage source={require('../assets/icons/ic_kitchen.png')} style={{width: 20, height: 20}}/>
               <Text style={{alignSelf: 'center', marginLeft: 8, color: '#685f58', fontWeight: '500'}}>{this.props.item.data().servings} servings</Text>
             </View>
           </View>

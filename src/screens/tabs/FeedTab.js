@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, SafeAreaView, TouchableOpacity, Image, ScrollView} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import WeekRecipes from '../../components/WeekRecipes';
 import RecipesHorizontalList from '../../components/RecipesHorizontalList';
 import {Actions} from 'react-native-router-flux';
@@ -67,12 +68,12 @@ export default class FeedTab extends Component {
             <TouchableOpacity onPress={() => {
               Actions.filter();
             }}>
-              <Image source={require('../../assets/icons/ic_slider.png')} style={{width: 32, height: 32, marginHorizontal: 8}}/>
+              <FastImage source={require('../../assets/icons/ic_slider.png')} style={{width: 32, height: 32, marginHorizontal: 8}}/>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {
               Actions.search();
             }}>
-              <Image source={require('../../assets/icons/ic_search.png')} style={{width: 32, height: 32, marginHorizontal: 8}}/>
+              <FastImage source={require('../../assets/icons/ic_search.png')} style={{width: 32, height: 32, marginHorizontal: 8}}/>
             </TouchableOpacity>
           </View>
           <View style={{flex: 1}}>

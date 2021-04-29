@@ -1,6 +1,7 @@
 import {Lightbox, Modal, Overlay, Router, Scene, Stack, Tabs} from 'react-native-router-flux';
 import React, {Component} from 'react';
 import {Text, View, Image} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import SplashScreen from './src/screens/SplashScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
@@ -50,7 +51,7 @@ const tabIcon = ({title, focused}) => {
   }
   return (
     <View style={{alignItems: 'center'}}>
-      <Image source={image} style={{width: 30, height: 30, marginTop: 8}}/>
+      <FastImage source={image} style={{width: 30, height: 30, marginTop: 8}}/>
       <Text style={{marginTop: 4, color: focused ? '#e09178' : 'grey'}}>{title}</Text>
       <View style={{height: focused ? 1 : 0, width: 60, marginTop: 4, backgroundColor: 'red'}}/>
     </View>

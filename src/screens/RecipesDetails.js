@@ -205,9 +205,7 @@ export default class RecipesDetails extends PureComponent {
             </View>
 
             <IndicatorViewPager
-              initialPage={4}
               style={{height: 300}}
-              onPageSelected={this.onPageSelected}
               indicator={this.renderDotIndicator()}>
               {this.props.data.images.map((image, index) => this.renderPageItem(index, image))}
             </IndicatorViewPager>

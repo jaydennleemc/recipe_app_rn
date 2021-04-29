@@ -84,18 +84,12 @@ export default class SplashScreen extends Component {
     );
   }
 
-  onPageSelected = ({position}) => {
-    this.setState({pageIndex: position});
-    console.log('Selected page position:', position);
-  };
-
   render() {
     return (
       <View style={{flex: 1}}>
         {this.state.initialView ?
           <IndicatorViewPager
             style={{flex: 1}}
-            onPageSelected={this.onPageSelected}
             indicator={this.renderDotIndicator()}>
             {PagingData.map(page => Page(page))}
           </IndicatorViewPager> :

@@ -43,10 +43,6 @@ const ItemComp = (item) => (
 
 export default class WeekRecipes extends PureComponent {
 
-  state = {
-    pageIndex: 0,
-  };
-
   renderDotIndicator() {
     return (
       <PagerDotIndicator
@@ -57,10 +53,6 @@ export default class WeekRecipes extends PureComponent {
       />
     );
   }
-
-  onPageSelected = ({position}) => {
-    this.setState({pageIndex: position});
-  };
 
   render() {
     return (
@@ -77,7 +69,6 @@ export default class WeekRecipes extends PureComponent {
         <IndicatorViewPager
           initialPage={0}
           style={{flex: 1}}
-          onPageSelected={this.onPageSelected}
           indicator={this.renderDotIndicator()}>
           {this.props.data.map(item => ItemComp(item.data()))}
         </IndicatorViewPager>

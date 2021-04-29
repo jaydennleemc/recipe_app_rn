@@ -11,7 +11,8 @@ export default class RecipeVerticalItem extends PureComponent {
   render() {
     return (
       <TouchableOpacity
-        style={styles.cardContainer} key={uuid.v4()}
+        key={uuid.v4()}
+        style={styles.cardContainer}
         onPress={() => {
           Actions.push('recipeDetails', {data: this.props.item.data()});
         }}>

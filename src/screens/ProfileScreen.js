@@ -6,27 +6,55 @@ import {TabBar, TabView} from 'react-native-tab-view';
 import {getFavoriteRecipes, usersCollection} from '../firebase/Firestore';
 import RecipeVerticalItem from '../components/RecipeVerticalItem';
 import {getUserInfo} from '../components/Utils';
+import PlaceLoader from '../components/PlaceLoader';
+import uuid from 'react-native-uuid';
 
-const FirstRoute = (data) => (
-  <FlatList
-    style={{marginHorizontal: 8, marginTop: 16}}
-    data={data}
-    renderItem={({item}) => <RecipeVerticalItem item={item}/>}/>
-);
+const showPlaceLoader = () => {
+  const loaders = [];
+  for (let i = 0; i < 10; i++) {
+    loaders.push(<PlaceLoader key={uuid.v4()}/>);
+  }
+  return loaders;
+};
 
-const SecondRoute = (data) => (
-  <FlatList
-    style={{marginHorizontal: 8, marginTop: 16}}
-    data={data}
-    renderItem={({item}) => <RecipeVerticalItem item={item}/>}/>
-);
+const FirstRoute = (isLoading, data) => {
+  if (isLoading) {
+    return showPlaceLoader();
+  } else {
+    return (
+      <FlatList
+        style={{marginHorizontal: 8, marginTop: 16}}
+        data={data}
+        renderItem={({item}) => <RecipeVerticalItem item={item}/>}/>
+    );
+  }
+};
 
-const ThreeRoute = (data) => (
-  <FlatList
-    style={{marginHorizontal: 8, marginTop: 16}}
-    data={data}
-    renderItem={({item}) => <RecipeVerticalItem item={item}/>}/>
-);
+const SecondRoute = (isLoading, data) => {
+  if (isLoading) {
+    return showPlaceLoader();
+  } else {
+    return (
+      <FlatList
+        style={{marginHorizontal: 8, marginTop: 16}}
+        data={data}
+        renderItem={({item}) => <RecipeVerticalItem item={item}/>}/>
+    );
+  }
+};
+
+const ThreeRoute = (isLoading, data) => {
+  if (isLoading) {
+    return showPlaceLoader();
+  } else {
+    return (
+      <FlatList
+        style={{marginHorizontal: 8, marginTop: 16}}
+        data={data}
+        renderItem={({item}) => <RecipeVerticalItem item={item}/>}/>
+    );
+  }
+};
 
 export default class ProfileScreen extends Component {
 
@@ -38,6 +66,7 @@ export default class ProfileScreen extends Component {
       {key: 'three', title: 'Friends'},
     ],
     username: '',
+    loadingFavoritesRecipes: true,
     favoritesRecipes: [],
   };
 
@@ -49,7 +78,7 @@ export default class ProfileScreen extends Component {
       console.error(err);
     });
     getFavoriteRecipes().then((resp => {
-      this.setState({favoritesRecipes: resp.docs});
+      this.setState({favoritesRecipes: resp.docs, loadingFavoritesRecipes: false});
     })).catch(err => {
       console.error(err);
     });
@@ -58,11 +87,11 @@ export default class ProfileScreen extends Component {
   renderScene = ({route}) => {
     switch (route.key) {
       case 'first':
-        return FirstRoute(this.state.favoritesRecipes);
+        return FirstRoute(this.state.loadingFavoritesRecipes, this.state.favoritesRecipes);
       case 'second':
-        return SecondRoute(this.state.favoritesRecipes);
+        return SecondRoute(this.state.loadingFavoritesRecipes, this.state.favoritesRecipes);
       case 'three':
-        return ThreeRoute(this.state.favoritesRecipes);
+        return ThreeRoute(this.state.loadingFavoritesRecipes, this.state.favoritesRecipes);
       default:
         return null;
     }
@@ -137,7 +166,6 @@ export default class ProfileScreen extends Component {
         </View>
 
         <View style={{height: 1, width: '100%', backgroundColor: '#e09178', marginTop: 16, opacity: 0.5}}/>
-
         <TabView
           style={{width: '100%'}}
           navigationState={this.state}

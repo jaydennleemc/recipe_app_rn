@@ -6,7 +6,7 @@ import uuid from 'react-native-uuid';
 import {Actions} from 'react-native-router-flux';
 import {timeConvert} from './Utils';
 import {recipeCollections} from '../firebase/Firestore';
-
+import PlaceLoader from './PlaceLoader';
 
 export default class RecipesHorizontalList extends PureComponent {
 
@@ -83,31 +83,35 @@ export default class RecipesHorizontalList extends PureComponent {
             <Text style={{color: '#e09178', fontWeight: 'bold', marginRight: 24, fontSize: 16}}>See all</Text>
           </TouchableOpacity>
         </View>
-        <FlatList
+        {this.props.isLoading && <PlaceLoader/>}
+        {!this.props.isLoading && <FlatList
           style={{marginTop: 32, marginLeft: 16, overflow: 'hidden'}}
           horizontal
           data={this.props.data}
           ItemSeparatorComponent={() => <View style={{width: 16, backgroundColor: 'transparent', opacity: 0.1}}/>}
-          renderItem={this.renderItem}/>
+          renderItem={this.renderItem}/>}
       </View>
     );
   }
+
 }
 
 const styles = StyleSheet.create({
-  cardContainer: {
-    width: 250,
-    height: 'auto',
-    backgroundColor: 'white',
-    margin: 5,
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 1,
+    cardContainer: {
+      width: 250,
+      height: 'auto',
+      backgroundColor: 'white',
+      margin: 5,
+      borderRadius: 10,
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 1,
+      },
+      shadowOpacity: 0.27,
+      shadowRadius: 4.65,
+      elevation: 1,
+    }
+    ,
   },
-});
+);

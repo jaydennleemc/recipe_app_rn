@@ -8,9 +8,13 @@ import {getWeeklyRecipes, recipeCollections} from '../../firebase/Firestore';
 export default class FeedTab extends Component {
 
   state = {
+    loadingWeeklyRecipes: true,
     weeklyRecipes: [],
+    loadingAppetizerRecipes: true,
     appetizerRecipes: [],
+    loadingMainRecipes: true,
     mainRecipes: [],
+    loadingSoupRecipes: true,
     soupRecipes: [],
   };
 
@@ -24,7 +28,7 @@ export default class FeedTab extends Component {
 
   getWeeklyRecipes = () => {
     getWeeklyRecipes().then(resp => {
-      this.setState({weeklyRecipes: resp});
+      this.setState({weeklyRecipes: resp, loadingWeeklyRecipes: false});
     }).catch(err => {
       console.error(err);
     });
@@ -32,7 +36,7 @@ export default class FeedTab extends Component {
 
   getAppetizerRecipes = () => {
     recipeCollections.where('type', '==', 'appetizer').limit(5).get().then(resp => {
-      this.setState({appetizerRecipes: resp.docs});
+      this.setState({appetizerRecipes: resp.docs, loadingAppetizerRecipes: false});
     }).catch(err => {
       console.error(err);
     });
@@ -40,7 +44,7 @@ export default class FeedTab extends Component {
 
   getMainRecipes = () => {
     recipeCollections.where('type', '==', 'main').limit(5).get().then(resp => {
-      this.setState({mainRecipes: resp.docs});
+      this.setState({mainRecipes: resp.docs, loadingMainRecipes: false});
     }).catch(err => {
       console.error(err);
     });
@@ -48,7 +52,7 @@ export default class FeedTab extends Component {
 
   getSoupRecipes = () => {
     recipeCollections.where('type', '==', 'soup').limit(5).get().then(resp => {
-      this.setState({soupRecipes: resp.docs});
+      this.setState({soupRecipes: resp.docs, loadingSoupRecipes: false});
     }).catch(err => {
       console.error(err);
     });
@@ -74,21 +78,25 @@ export default class FeedTab extends Component {
           <View style={{flex: 1}}>
             <Text style={{fontSize: 40, fontWeight: '500', color: '#685f58', marginLeft: 16}}>All Recipes</Text>
             <WeekRecipes
+              isLoading={this.state.loadingWeeklyRecipes}
               data={this.state.weeklyRecipes}
               containerStyle={{height: 200, marginTop: 32}}/>
             <RecipesHorizontalList
+              isLoading={this.state.loadingAppetizerRecipes}
               key={'Appetizer'}
               type={'appetizer'}
               title={'Appetizer'}
               data={this.state.appetizerRecipes}
               containerStyle={{height: 'auto', marginTop: 32}}/>
             <RecipesHorizontalList
+              isLoading={this.state.loadingMainRecipes}
               key={'Main dishes'}
               type={'main'}
               title={'Main dishes'}
               data={this.state.mainRecipes}
               containerStyle={{height: 'auto', marginTop: 32}}/>
             <RecipesHorizontalList
+              isLoading={this.state.loadingSoupRecipes}
               key={'Soup'}
               type={'soup'}
               title={'Soup'}
